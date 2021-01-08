@@ -1,0 +1,7 @@
+{
+  "name": "feed-tech",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
