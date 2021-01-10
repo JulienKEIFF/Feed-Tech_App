@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "feed-tech",
+  "appId": "fr.julienkeiff.feedtech",
+  "appName": "Feed-Tech",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
