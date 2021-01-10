@@ -51,6 +51,14 @@
             <IonToggle />
           </ion-item>
         </ion-list>
+
+        <h1>Autre</h1>
+        <ion-list>
+          <ion-item lines="none">
+            <IonLabel>Version de l'app</IonLabel>
+            <IonLabel slot="end" style="text-align: right">v0.1.0 DEBUG</IonLabel>
+          </ion-item>
+        </ion-list>
       </div>
     
     </ion-content>
