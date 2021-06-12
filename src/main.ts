@@ -30,3 +30,9 @@ const app = createApp(App)
 router.isReady().then(() => {
   app.mount('#app');
 });
+
+window.appName = "Feed Tech";
+
+declare global {
+  interface Window { appName: string }
+}
