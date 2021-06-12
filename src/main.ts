@@ -35,4 +35,5 @@ window.appName = "Feed Tech";
 
 declare global {
   interface Window { appName: string }
+  interface Window { rssSources: object }
 }
