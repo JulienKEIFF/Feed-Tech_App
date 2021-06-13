@@ -35,5 +35,27 @@ window.appName = "Feed Tech";
 
 declare global {
   interface Window { appName: string }
-  interface Window { rssSources: object }
+  interface Day {
+    "Mon": string;
+    "Tue": string;
+    "Wed": string;
+    "Thu": string;
+    "Fri": string;
+    "Sat": string;
+    "Sun": string;
+  }
+  interface Month {
+    "Jan": string;
+    "Feb": string;
+    "Mar": string;
+    "Apr": string;
+    "May": string;
+    "Jun": string;
+    "Jul": string;
+    "Aug": string;
+    "Sep": string;
+    "Oct": string;
+    "Nov": string;
+    "Dec": string;
+  }
 }

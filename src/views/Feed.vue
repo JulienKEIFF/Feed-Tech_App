@@ -3,7 +3,7 @@
 
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>{{appName}}</ion-title>
+        <ion-title>{{ displayRSS.title || appName}} </ion-title>
         <ion-button slot="end" shape="round" fill="clear" color="medium" @click="presentRss">
           <ion-icon :icon="ellipsisVerticalOutline"></ion-icon>
         </ion-button>
@@ -12,10 +12,8 @@
     <ion-progress-bar type="indeterminate" v-if="loadingTime"></ion-progress-bar>
 
     <ion-content>
-      <div>{{displayRSS.title}}</div>
       <div v-for="(item, i) in displayRSS.items" :key="i">
-        <div>{{item.title}}</div>
-        <div v-html="item.content"></div>
+        <g-card :rss="item" />
       </div>
     </ion-content>
 
@@ -26,6 +24,7 @@
 import { IonPage, IonContent, IonHeader, IonButton, IonTitle, IonToolbar, IonProgressBar, IonIcon, actionSheetController } from '@ionic/vue';
 import { ellipsisVerticalOutline, checkmarkOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import GCard from '../components/global/g_card.vue'
 
 import { parseURL } from '../utils/rssParser';
 import { rssLinks } from '../utils/rssLinks';
@@ -44,7 +43,8 @@ export default defineComponent({
     IonTitle,
     IonToolbar,
     IonProgressBar,
-    IonIcon
+    IonIcon,
+    GCard
   },
 
   data(){
