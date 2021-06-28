@@ -4,30 +4,20 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-title>{{ displayRSS.title || appName}} </ion-title>
-        <ion-button slot="end" shape="round" fill="clear" color="medium" @click="presentRss">
-          <ion-icon :icon="ellipsisVerticalOutline"></ion-icon>
-        </ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-progress-bar type="indeterminate" v-if="loadingTime"></ion-progress-bar>
 
     <ion-content>
-      <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
-        <ion-refresher-content />
-      </ion-refresher>
-      <div v-for="(item, i) in displayRSS.items" :key="i">
-        <g-card :rss="item" />
-      </div>
     </ion-content>
 
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent, IonHeader, IonButton, IonTitle, IonToolbar, IonProgressBar, IonIcon, IonRefresher, IonRefresherContent, actionSheetController } from '@ionic/vue';
-import { ellipsisVerticalOutline, checkmarkOutline } from 'ionicons/icons';
+import { IonPage, IonContent, IonHeader, IonTitle, IonToolbar, IonProgressBar, actionSheetController } from '@ionic/vue';
+import { checkmarkOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-import GCard from '../components/global/g_card.vue'
 
 import { parseURL } from '../utils/rssParser';
 import { rssLinks } from '../utils/rssLinks';
@@ -35,21 +25,16 @@ import { rssLinks } from '../utils/rssLinks';
 export default defineComponent({
   name: 'Home',
   setup() {
-    return { ellipsisVerticalOutline, checkmarkOutline }
+    return { checkmarkOutline }
   },
 
   components: {
     IonPage,
     IonContent,
     IonHeader,
-    IonButton,
     IonTitle,
     IonToolbar,
     IonProgressBar,
-    IonIcon,
-    IonRefresher,
-    IonRefresherContent,
-    GCard
   },
 
   data(){
@@ -63,10 +48,6 @@ export default defineComponent({
   },
 
   methods: {
-    refresh() {
-      console.log('TODO Refresh')
-    },
-
     async presentRss() {
       const button: any[] = [];
       for (let i = 0; i < rssLinks.length; i++) {
@@ -99,4 +80,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 </style>

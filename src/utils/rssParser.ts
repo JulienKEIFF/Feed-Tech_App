@@ -11,6 +11,7 @@ const parseURL = async (url: string): Promise<RssFeed> => {
 }
 
 const getNewFeed = async (max: number) => {
+  console.log('reload')
   const itemList: ItemRssFeed[] = []
   for (const key in rssLinks) {
     const link = rssLinks[key];

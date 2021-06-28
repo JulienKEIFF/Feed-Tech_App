@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
 import Feed from '../views/Feed.vue';
-import Setting from '../views/setting.vue'
+import Favorite from '../views/Favorite.vue';
+import Setting from '../views/setting.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/rss',
     name: 'rss',
     component: Feed
+  },
+  {
+    path: '/fav',
+    name: 'fav',
+    component: Favorite
   },
   {
     path: '/settings',

@@ -12,6 +12,9 @@
     <ion-progress-bar type="indeterminate" v-if="loading"></ion-progress-bar>
 
     <ion-content>
+      <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
+        <ion-refresher-content />
+      </ion-refresher>
       <ion-title style="margin: 2% 0; font-size:1.7rem">Les derniers articles</ion-title>
       <div v-for="(rss, i) in rssToDisplay" :key="i"> <g-card :rss="rss" :home="true" /> </div>
     </ion-content>
@@ -20,7 +23,7 @@
 </template>
 
 <script lang="js">
-import { IonPage, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonProgressBar } from '@ionic/vue';
+import { IonPage, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonProgressBar, IonRefresher, IonRefresherContent } from '@ionic/vue';
 import { refreshOutline } from 'ionicons/icons';
 import { defineComponent, reactive, ref } from 'vue';
 
@@ -39,6 +42,8 @@ export default defineComponent({
     IonButton,
     IonIcon,
     IonProgressBar,
+    IonRefresher,
+    IonRefresherContent,
     GCard
   },
   setup(){
@@ -50,12 +55,20 @@ export default defineComponent({
       rssToDisplay: [],
     }
   }, 
+
+  methods:{
+    refresh(ev) {
+      getNewFeed(40)
+      .then(res => {
+        this.rssToDisplay = res;
+        this.loading = false;
+        ev.target.complete()
+      })
+    }
+  },
+
   mounted() {
-    getNewFeed(40)
-    .then(res => {
-      this.rssToDisplay = res;
-      this.loading = false;
-    })
+    this.refresh()
   }
 });
 </script>
