@@ -63,8 +63,13 @@ export default defineComponent({
   },
 
   methods: {
-    refresh() {
-      console.log('TODO Refresh')
+    refresh(ev: any) {
+      parseURL(this.selectedSource)
+        .then(res=>{
+          this.displayRSS = res;
+          this.loadingTime = false;
+          if(ev !== null) ev.target.complete()
+        })
     },
 
     async presentRss() {
@@ -77,12 +82,7 @@ export default defineComponent({
           handler: () => {
             this.loadingTime = true;
             this.selectedSource = link.link;
-            parseURL(link.link)
-            .then(res=>{
-              this.displayRSS = res;
-              this.loadingTime = false;
-              console.log(res)
-            })
+            this.refresh(null);
           },
         })
       }
