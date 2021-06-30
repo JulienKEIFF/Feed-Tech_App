@@ -8,11 +8,12 @@
     <ion-card-content v-html="rss.content" />
 
     <ion-card-content>
+      <h3><a :href="rss.guid">Lire l'article</a></h3>
       <h2 v-if="home">  {{ rss.creator }} </h2>
       <h2>  {{ formatDate(rss.pubDate)}} </h2>
-      <ion-button fill="clear"> <ion-icon :icon="bookmarkOutline" /> </ion-button> 
-      <ion-button fill="clear"> <ion-icon :icon="heartOutline" /> </ion-button>
-      <ion-button fill="clear"> <ion-icon :icon="shareSocialOutline" /> </ion-button>
+      <ion-button @click="addToFav()" fill="clear"> <ion-icon :icon="bookmarkOutline" /> </ion-button> 
+      <ion-button @click="null" fill="clear"> <ion-icon :icon="heartOutline" /> </ion-button>
+      <ion-button @click="null" fill="clear"> <ion-icon :icon="shareSocialOutline" /> </ion-button>
     </ion-card-content>
   </ion-card>
 </template>
@@ -55,11 +56,15 @@ export default {
       }
 
       return `${getDay(dateArr[0])} ${dateArr[1]} ${getMonth(dateArr[2])} ${dateArr[3]} à ${dateArr[4]}`;
+    },
+
+    addToFav() {
+      console.log('This card is to add to fav')
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

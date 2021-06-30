@@ -62,7 +62,6 @@ export default defineComponent({
             .then(res=>{
               this.displayRSS = res;
               this.loadingTime = false;
-              console.log(res)
             })
           },
         })

@@ -63,6 +63,7 @@ export default defineComponent({
         this.rssToDisplay = res;
         this.loading = false;
         ev.target.complete()
+        console.log(this.rssToDisplay)
       })
     }
   },
