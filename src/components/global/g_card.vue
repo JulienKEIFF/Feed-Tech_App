@@ -8,7 +8,7 @@
     <ion-card-content v-html="rss.content" />
 
     <ion-card-content>
-      <h3><a :href="rss.guid">Lire l'article</a></h3>
+      <h3 class="read"><a :href="rss.guid">Lire l'article</a></h3>
       <h2 v-if="home">  {{ rss.creator }} </h2>
       <h2>  {{ formatDate(rss.pubDate)}} </h2>
       <ion-button @click="addToFav()" fill="clear"> <ion-icon :icon="bookmarkOutline" /> </ion-button> 
@@ -66,5 +66,5 @@ export default {
 </script>
 
 <style scoped>
-
+.read{ margin: 2% 0; }
 </style>

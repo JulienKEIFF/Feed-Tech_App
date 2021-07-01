@@ -95,6 +95,11 @@ export default defineComponent({
     }
   },
 
+  mounted() {
+    this.selectedSource = rssLinks[0].link;
+    this.refresh(null);
+  }
+
 });
 </script>
 

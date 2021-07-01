@@ -53,17 +53,21 @@ export default defineComponent({
     return {
       loading: true,
       rssToDisplay: [],
+      alreadyLoading: false,
     }
   }, 
 
   methods:{
     refresh(ev) {
+      this.alreadyLoading = true;
       getNewFeed(40)
       .then(res => {
-        this.rssToDisplay = res;
-        this.loading = false;
-        ev.target.complete()
-        console.log(this.rssToDisplay)
+        if(this.alreadyLoading) {
+          this.alreadyLoading = false;
+          this.rssToDisplay = res;
+          this.loading = false;
+          if(ev !== undefined) ev.target.complete()
+        }
       })
     }
   },
