@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "feed_tech_app",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

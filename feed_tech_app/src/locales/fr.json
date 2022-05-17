@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "home": "Accueil",
+    "groups": "Groupes",
+    "feeds": "Flux",
+    "settings": "Paramètres"
+  },
+  "settings": {
+    "login": "Connexion"
+  }
+}
