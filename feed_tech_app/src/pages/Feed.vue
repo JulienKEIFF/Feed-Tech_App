@@ -5,13 +5,13 @@
 
   <ion-page v-else>
     <ion-content>
-        <ion-card v-for="(feed,i) in feeds" :key="i">
+      <ion-card v-for="(feed, i) in feeds" :key="i">
         <ion-card-header>
-            <ion-card-title>{{feed.title}}</ion-card-title>
+          <ion-card-title>{{ feed.title }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content v-html="feed.content"> </ion-card-content>
-        </ion-card>
+      </ion-card>
 
     </ion-content>
   </ion-page>
@@ -36,8 +36,8 @@ export default defineComponent({
     let loading = ref(true);
 
     onMounted(async () => {
-      const feed = props['feed'];
-      const {data} = await axios.get('http://localhost:3000/api/v1/feed/' + feed._id);
+      const feed: RssFeed = props['feed'] as RssFeed;
+      const { data } = await axios.get('http://localhost:3000/api/v1/feed/' + feed._id);
       feeds.value = data;
       loading.value = false;
     });
@@ -53,5 +53,4 @@ export default defineComponent({
 </script>
 
 <style>
-
 </style>

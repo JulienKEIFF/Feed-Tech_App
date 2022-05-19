@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
+import axios from 'axios';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -24,6 +25,8 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 import i18n from './i18n'
+
+axios.create({baseURL: 'http://192.168.1.21:3000'});
 
 customElements.define(
   'popover-option',

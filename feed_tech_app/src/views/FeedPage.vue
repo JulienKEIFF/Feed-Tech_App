@@ -39,8 +39,6 @@ export default defineComponent({
     const { t } = useI18n();
     const feeds = ref([]);
     
-    let currentPopover;
-
     onMounted(async () => {
       const {data} = await axios.get('http://localhost:3000/api/v1/feed/');
       feeds.value = data;      
