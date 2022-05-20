@@ -8,3 +8,9 @@ export interface RssFeed {
     rssDisplayName: string;
     language: string;
 }
+
+export interface RssGroup {
+    _id: string;
+    name: string;
+    description: string;
+}

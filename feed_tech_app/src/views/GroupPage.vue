@@ -27,6 +27,14 @@
             </ion-card>
           </ion-col>
 
+          <ion-col size="6">
+            <ion-card style="height: 33vh" @click="openGroups">
+              <ion-card-content style="font-size: 20vw; display: flex; align-items: center; justify-content: center; height: 33vh">
+                <ion-icon :icon="addOutline" />
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
         </ion-row>
       </ion-grid>
 
@@ -36,11 +44,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { createOutline } from 'ionicons/icons';
+import { createOutline, addOutline } from 'ionicons/icons';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCol, IonRow, IonGrid,
- IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon } from '@ionic/vue';
+ IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, modalController } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
+
 import axiosInstance from '../utils/axios';
+import Group from '../pages/Groups.vue';
 
 export default defineComponent({
   name: 'GroupPage',
@@ -53,10 +63,22 @@ export default defineComponent({
       groups.value = data;
     });
 
+    const openGroups = async (e: any) => {
+       const modal = await modalController.create({
+        component: Group,
+        breakpoints: [0, 0.5, 1],
+        initialBreakpoint: 0.5,
+      });
+
+      modal.present();
+    }
+
     return {
       t,
+      openGroups,
       groups,
       createOutline,
+      addOutline,
     }
   },
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCol, IonRow, IonGrid,
