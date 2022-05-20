@@ -26,18 +26,18 @@ import './theme/variables.css';
 
 import i18n from './i18n'
 
-axios.create({baseURL: 'http://192.168.1.21:3000'});
+
 
 customElements.define(
   'popover-option',
   class ModalContent extends HTMLElement {
     connectedCallback() {
       this.innerHTML = `
-          <ion-list>
-            <ion-list-header>Choix du flux</ion-list-header>
-            <ion-item button>Ajouter le flux à mon groupe</ion-item>
-          </ion-list>
-        `;
+        <ion-list>
+          <ion-list-header>Choix du flux</ion-list-header>
+          <ion-item button>Ajouter le flux à mon groupe</ion-item>
+        </ion-list>
+      `;
     }
   }
 );

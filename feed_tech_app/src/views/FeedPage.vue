@@ -31,7 +31,7 @@ IonCardTitle, modalController } from '@ionic/vue';
 
 import Feed from '../pages/Feed.vue';
 import { useI18n } from "vue-i18n";
-import axios from 'axios';
+import axiosInstance from '../utils/axios';
 
 export default defineComponent({
   name: 'FeedPage',
@@ -40,12 +40,11 @@ export default defineComponent({
     const feeds = ref([]);
     
     onMounted(async () => {
-      const {data} = await axios.get('http://localhost:3000/api/v1/feed/');
+      const {data} = await axiosInstance.get('/api/v1/feed/');
       feeds.value = data;      
     });
 
     const openModal = async (e: any) => {
-      console.log(e);
       const modal = await modalController.create({
         component: Feed,
         componentProps: { 'feed': e },

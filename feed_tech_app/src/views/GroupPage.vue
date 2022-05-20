@@ -40,7 +40,7 @@ import { createOutline } from 'ionicons/icons';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCol, IonRow, IonGrid,
  IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
-import axios from 'axios';
+import axiosInstance from '../utils/axios';
 
 export default defineComponent({
   name: 'GroupPage',
@@ -49,7 +49,7 @@ export default defineComponent({
     const groups = ref([]);
 
     onMounted(async () => {
-      const {data} = await axios.get('http://localhost:3000/api/v1/user/62542206ceea926f83b509ce/group');
+      const {data} = await axiosInstance.get('/api/v1/user/62542206ceea926f83b509ce/group');
       groups.value = data;
     });
 

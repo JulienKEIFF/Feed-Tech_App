@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
+import axiosInstance from '../utils/axios';
 import { defineComponent, ref, onMounted } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
@@ -39,7 +39,7 @@ export default  defineComponent({
     const items = ref([]);
 
     onMounted(async () => {
-      const {data} = await axios.get('http://localhost:3000/api/v1/items/recent?limit=40');
+      const {data} = await axiosInstance.get('/api/v1/items/recent?limit=40');
       items.value = data;
     });
 

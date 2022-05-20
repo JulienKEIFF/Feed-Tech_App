@@ -23,7 +23,7 @@ import { RssFeed } from '../global';
 import { defineComponent, ref, onMounted } from 'vue';
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonProgressBar } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
-import axios from 'axios';
+import axiosInstance from '../utils/axios';
 
 export default defineComponent({
   name: 'FeedPage',
@@ -37,7 +37,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const feed: RssFeed = props['feed'] as RssFeed;
-      const { data } = await axios.get('http://localhost:3000/api/v1/feed/' + feed._id);
+      const { data } = await axiosInstance.get('/api/v1/feed/' + feed._id);
       feeds.value = data;
       loading.value = false;
     });
