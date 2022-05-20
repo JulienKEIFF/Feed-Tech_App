@@ -18,7 +18,7 @@ router.get('/:id/group', async (req, res, next) => {
   }
 
   const user = await User.findById(id);
-  const groups = await Group.find({ members: user.id }, {users: 0});
+  const groups = await Group.find({ users: user.id }, {users: 0});
   res.json(groups);
 });
 
