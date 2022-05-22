@@ -7,13 +7,12 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 2</ion-title>
-        </ion-toolbar>
-      </ion-header>
+
+      <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       
-      <ion-grid>
+      <ion-grid v-if="showGroups">
         <ion-row>
           <ion-col v-for="(group, i) in groups" :key="i" size="6">
             <ion-card style="height: 33vh">
@@ -38,6 +37,16 @@
         </ion-row>
       </ion-grid>
 
+      <ion-card v-else>
+        <ion-card-header>
+          <ion-card-title>Utilisateur Anonyme</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          Créer un compte ou connectez-vous pour profiter de la fonction des groupes
+        </ion-card-content>
+      </ion-card>
+
     </ion-content>
   </ion-page>
 </template>
@@ -46,10 +55,12 @@
 import { defineComponent, ref, onMounted } from 'vue';
 import { createOutline, addOutline } from 'ionicons/icons';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCol, IonRow, IonGrid,
- IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, modalController } from '@ionic/vue';
+ IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, modalController,
+ IonRefresher, IonRefresherContent, onIonViewDidEnter } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
 
 import axiosInstance from '../utils/axios';
+import { isConnected, getUser } from '../utils/user';
 import Group from '../pages/Groups.vue';
 
 export default defineComponent({
@@ -57,10 +68,22 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const groups = ref([]);
+    const showGroups = ref(false);
+
+    
+
+    const refresh = async (event: any) => {
+      if (isConnected()) {
+        const userId = getUser()._id;
+        const {data} = await axiosInstance.get('/api/v1/user/' + userId + '/group');
+        groups.value = data;
+        showGroups.value = true;
+      } else showGroups.value = false;
+      if (event != null) event.target.complete();
+    }
 
     onMounted(async () => {
-      const {data} = await axiosInstance.get('/api/v1/user/62542206ceea926f83b509ce/group');
-      groups.value = data;
+      refresh(null);
     });
 
     const openGroups = async (e: any) => {
@@ -73,15 +96,23 @@ export default defineComponent({
       modal.present();
     }
 
+    onIonViewDidEnter(() => {
+      refresh(null);
+    });
+
     return {
       t,
+      refresh,
       openGroups,
+      
       groups,
+      showGroups,
+
       createOutline,
       addOutline,
     }
   },
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCol, IonRow, IonGrid,
-   IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon }
+   IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonRefresher, IonRefresherContent }
 });
 </script>

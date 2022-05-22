@@ -34,29 +34,30 @@ router.post('/login', async (req, res, next) => {
   const userPass = req?.body?.password;
   
   if (!userMail || !userPass) {
-    res.json({error: 'not' });
+    res.status(401).json({ error: 'Not right email or password' });
     return;
   }
 
-  const user = await User.findOne({ email: userMail });
+  const userToCheck = await User.findOne({ email: userMail });
+  const user = await User.findOne({ email: userMail }, {password: 0})
 
-  if (!user) {
-    res.json({ error: 'not' });
+  if (!userToCheck) {
+    res.status(401).json({ error: 'Not right email or password' });
     return;
   }
 
-  const isPasswordValid = await comparePassword(userPass, user.password);
+  const isPasswordValid = await comparePassword(userPass, userToCheck.password);
   if (isPasswordValid) {
-    const payload = { id: user.id, email: user.email };
+    const payload = { id: userToCheck.id, email: userToCheck.email };
     const options = { expiresIn: '1d' };
 
     const token = jwt.sign(payload, JWT_SECRET, options)
-    user.lastConnexion = date.getTime();
-    user.save()
+    userToCheck.lastConnexion = date.getTime();
+    userToCheck.save()
       .then(() => res.json({user, token}))
       .catch((e) => res.status(500).json({ error: "This user already exist", e }))
   } else {
-    res.json({ error: 'Not right email or password' });
+    res.status(401).json({ error: 'Not right email or password' });
   }
 })
 

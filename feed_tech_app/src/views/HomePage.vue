@@ -35,7 +35,7 @@
 import axiosInstance from '../utils/axios';
 import { defineComponent, ref, onMounted } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
-IonRefresher, IonRefresherContent } from '@ionic/vue';
+IonRefresher, IonRefresherContent, onIonViewDidEnter } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
 
 export default  defineComponent({
@@ -51,6 +51,10 @@ export default  defineComponent({
     }
 
     onMounted(async () => {
+      refresh(null);
+    });
+
+    onIonViewDidEnter(() => {
       refresh(null);
     });
 
