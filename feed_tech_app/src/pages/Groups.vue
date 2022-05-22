@@ -10,7 +10,9 @@
           <ion-card-title>{{ group.name }}</ion-card-title>
         </ion-card-header>
 
-        <ion-card-content>{{group.description}}</ion-card-content>
+        <ion-card-content>
+          {{group.description}}
+        </ion-card-content>
       </ion-card>
 
     </ion-content>

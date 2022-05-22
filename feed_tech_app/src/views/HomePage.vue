@@ -7,6 +7,11 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
+
+      <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Tab 1</ion-title>
@@ -29,7 +34,8 @@
 <script lang="ts">
 import axiosInstance from '../utils/axios';
 import { defineComponent, ref, onMounted } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
+IonRefresher, IonRefresherContent } from '@ionic/vue';
 import { useI18n } from "vue-i18n";
 
 export default  defineComponent({
@@ -38,16 +44,23 @@ export default  defineComponent({
     const { t } = useI18n();
     const items = ref([]);
 
-    onMounted(async () => {
+    const refresh = async (event: any) => {
       const {data} = await axiosInstance.get('/api/v1/items/recent?limit=40');
       items.value = data;
+      if (event != null) event.target.complete();
+    }
+
+    onMounted(async () => {
+      refresh(null);
     });
 
     return {
       t,
+      refresh,
       items,
     }
   },
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle }
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
+  IonRefresher, IonRefresherContent }
 });
 </script>
